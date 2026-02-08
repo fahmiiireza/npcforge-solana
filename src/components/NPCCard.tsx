@@ -1,6 +1,7 @@
 'use client';
 
 import { FC } from 'react';
+import Link from 'next/link';
 
 interface NPC {
   id: string;
@@ -19,16 +20,19 @@ interface NPC {
 
 interface NPCCardProps {
   npc: NPC;
-  onHire?: (npc: NPC) => void;
 }
 
-const NPCCard: FC<NPCCardProps> = ({ npc, onHire }) => {
+const NPCCard: FC<NPCCardProps> = ({ npc }) => {
   const averageRating = npc.ratingCount > 0 
     ? (npc.ratingSum / npc.ratingCount).toFixed(1) 
     : 'No ratings';
 
   const formatPrice = (price: number) => {
     return (price / 1_000_000).toFixed(2);
+  };
+
+  const formatType = (type: string) => {
+    return type.replace(/([A-Z])/g, ' $1').replace(/^./, str => str.toUpperCase());
   };
 
   return (
@@ -51,7 +55,7 @@ const NPCCard: FC<NPCCardProps> = ({ npc, onHire }) => {
 
         <div className="mb-4">
           <span className="inline-block bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded">
-            {npc.npcType}
+            {formatType(npc.npcType)}
           </span>
         </div>
 
@@ -82,18 +86,18 @@ const NPCCard: FC<NPCCardProps> = ({ npc, onHire }) => {
           </div>
         </div>
 
-        <div className="flex items-center justify-between text-sm text-gray-500">
+        <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
           <span>{npc.totalHires} hires</span>
           <span>★ {averageRating}</span>
         </div>
 
-        {onHire && npc.isActive && (
-          <button
-            onClick={() => onHire(npc)}
-            className="mt-4 w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors font-medium"
+        {npc.isActive && (
+          <Link
+            href={`/hire?npc=${npc.id}`}
+            className="block w-full bg-purple-600 text-white py-2 rounded-lg hover:bg-purple-700 transition-colors font-medium text-center"
           >
             Hire NPC
-          </button>
+          </Link>
         )}
       </div>
     </div>
