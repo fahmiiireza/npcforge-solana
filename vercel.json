@@ -1,0 +1,11 @@
+{
+  "name": "npcforge",
+  "framework": "nextjs",
+  "buildCommand": "next build",
+  "outputDirectory": ".next",
+  "installCommand": "npm install",
+  "devCommand": "next dev",
+  "env": {
+    "NEXT_PUBLIC_SOLANA_NETWORK": "devnet"
+  }
+}
