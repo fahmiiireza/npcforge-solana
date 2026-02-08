@@ -1,6 +1,5 @@
-import type { NextConfig } from 'next'
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   reactStrictMode: true,
   async rewrites() {
     return [
@@ -8,8 +7,8 @@ const nextConfig: NextConfig = {
         source: '/api/programs/:path*',
         destination: 'http://localhost:8899/:path*',
       },
-    ]
+    ];
   },
-}
+};
 
-export default nextConfig
+export default nextConfig;
