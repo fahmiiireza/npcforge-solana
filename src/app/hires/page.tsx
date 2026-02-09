@@ -38,8 +38,8 @@ export default function MyHires() {
       const names: Record<string, string> = {};
       for (const hire of myHires) {
         try {
-          const npc = await program.account.npc.fetch(hire.account.npc);
-          names[hire.account.npc.toBase58()] = npc.name;
+          const npc = await program.account.npc.fetch(hire.account.npc) as any;
+          names[hire.account.npc.toBase58()] = npc.name || 'Unknown NPC';
         } catch (e) {
           names[hire.account.npc.toBase58()] = 'Unknown NPC';
         }
